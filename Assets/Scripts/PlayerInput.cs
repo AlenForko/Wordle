@@ -4,6 +4,7 @@ using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 public class PlayerInput : MonoBehaviour
 {
@@ -33,7 +34,6 @@ public class PlayerInput : MonoBehaviour
       inputText[0].text = "";
 
       InitializeKeyboard();
-      
    }
 
    private void Update()
@@ -94,7 +94,22 @@ public class PlayerInput : MonoBehaviour
    {
       for (int i = 0; i < _keyboardLayout.Length; i++)
       {
-         _keyboardLayout[i].gameObject.GetComponentInChildren<TextMeshProUGUI>().text = _letters[i];
+        // _keyboardLayout[i].gameObject.GetComponentInChildren<TextMeshProUGUI>().text = _letters[i];
+         _keyboardLayout[i].gameObject.AddComponent<KeyboardButton>().Init(this, _letters[i]);
+         // string letter = _letters[i];
+         // _keyboardLayout[i].gameObject.GetComponent<Button>().onClick.AddListener(() => { InputWord(letter); });
+      }
+   }
+
+   public void InputWord(string word)
+   {
+      if (PlayerInputString.Length <= 4)
+      {
+         PlayerInputString += word;
+         for (int i = 0; i < PlayerInputString.Length; i++)
+         {
+            inputText[i].text = PlayerInputString[i].ToString();
+         }
       }
    }
 }
