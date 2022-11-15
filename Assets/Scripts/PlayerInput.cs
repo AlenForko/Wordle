@@ -7,9 +7,8 @@ using UnityEngine.Events;
 
 public class PlayerInput : MonoBehaviour
 {
-   private string _playerInputString;
-   public string PlayerInputString => _playerInputString;
-   
+   private string PlayerInputString { get; set; }
+
    [Header("~~~~Event~~~~")]
    public UnityEvent<string> onSubmitWord = new UnityEvent<string>();
 
@@ -22,7 +21,7 @@ public class PlayerInput : MonoBehaviour
    [SerializeField] private GameObject[] _keyboardLayout;
    private PlayerInput _playerInput;
 
-   public readonly string[] Letters = 
+   private readonly string[] _letters = 
    {
       "Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P", "A", "S", "D", "F", "G", "H", "J", "K", "L",
       "Z", "X", "C", "V", "B", "N", "M"
@@ -30,7 +29,7 @@ public class PlayerInput : MonoBehaviour
 
    private void Start()
    {
-      _playerInputString = "";
+      PlayerInputString = "";
       inputText[0].text = "";
 
       InitializeKeyboard();
@@ -45,11 +44,11 @@ public class PlayerInput : MonoBehaviour
          {
             if (Input.inputString.All(Char.IsLetter))
             {
-               _playerInputString += Input.inputString;
+               PlayerInputString += Input.inputString;
                
-               for (int i = 0; i < _playerInputString.Length; i++)
+               for (int i = 0; i < PlayerInputString.Length; i++)
                {
-                  inputText[i].text = _playerInputString[i].ToString().ToUpper();
+                  inputText[i].text = PlayerInputString[i].ToString().ToUpper();
                }
             }
          }
@@ -69,33 +68,33 @@ public class PlayerInput : MonoBehaviour
    //Resets the input to blank.
    private void ResetLetters()
    {
-      for (int i = 0; i < _playerInputString.Length; i++)
+      for (int i = 0; i < PlayerInputString.Length; i++)
       {
          inputText[i].text = " ";
       }
-      _playerInputString = " ";
+      PlayerInputString = "";
    }
 
    public void EnterWord()
    {
-      onSubmitWord.Invoke(_playerInputString);
+      onSubmitWord.Invoke(PlayerInputString);
       ResetLetters();
    }
 
    public void Backspace()
    {
       if(PlayerInputString.Length > 0)
-         _playerInputString = _playerInputString.Remove(PlayerInputString.Length - 1);
+         PlayerInputString = PlayerInputString.Remove(PlayerInputString.Length - 1);
      
       //Removes a letter from the input field.
-      inputText[_playerInputString.Length].text = " ";
+      inputText[PlayerInputString.Length].text = " ";
    }
    
    private void InitializeKeyboard()
    {
       for (int i = 0; i < _keyboardLayout.Length; i++)
       {
-         _keyboardLayout[i].gameObject.GetComponentInChildren<TextMeshProUGUI>().text = Letters[i];
+         _keyboardLayout[i].gameObject.GetComponentInChildren<TextMeshProUGUI>().text = _letters[i];
       }
    }
 }
