@@ -94,10 +94,11 @@ public class PlayerInput : MonoBehaviour
    {
       for (int i = 0; i < _keyboardLayout.Length; i++)
       {
-        // _keyboardLayout[i].gameObject.GetComponentInChildren<TextMeshProUGUI>().text = _letters[i];
-         _keyboardLayout[i].gameObject.AddComponent<KeyboardButton>().Init(this, _letters[i]);
-         // string letter = _letters[i];
-         // _keyboardLayout[i].gameObject.GetComponent<Button>().onClick.AddListener(() => { InputWord(letter); });
+         _keyboardLayout[i].gameObject.GetComponentInChildren<TextMeshProUGUI>().text = _letters[i];
+         //_keyboardLayout[i].gameObject.AddComponent<KeyboardButton>().Init(this, _letters[i]); 
+         
+         string letter = _letters[i]; 
+         _keyboardLayout[i].gameObject.GetComponent<Button>().onClick.AddListener(() => { InputWord(letter); });
       }
    }
 
