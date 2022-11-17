@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class WordleManager : MonoBehaviour
 {
@@ -10,7 +11,7 @@ public class WordleManager : MonoBehaviour
     public List<string> textWords = new List<string>();
     
     private string _selectedWord;
-    private int _tries = 5;
+    public int tries = 0;
     
     private void Start()
     {
@@ -20,7 +21,7 @@ public class WordleManager : MonoBehaviour
 
     public void CheckWord(string word)
     {
-        if (_tries > 0)
+        if (tries <= 4)
         {
             if (!textWords.Contains(word))
             {
@@ -29,16 +30,16 @@ public class WordleManager : MonoBehaviour
             else if (word == _selectedWord)
             {
                 Win();
-                _tries = 0;
             }
             else
             {
-                _tries--;
+                tries++;
                 IncorrectWord();
                 
-                if (_tries <= 0)
+                if (tries >= 5)
                 {
                     Debug.Log("You lose!");
+                    Invoke(nameof(ReloadScene), 2f);
                 }
             }
         }
@@ -57,11 +58,16 @@ public class WordleManager : MonoBehaviour
 
     private void IncorrectWord()
     {
-        Debug.Log("Incorrect word!" + _tries);
+        Debug.Log("Incorrect word!" + tries);
     }
 
-    private void InvalidInput()
+    public void InvalidInput()
     {
         Debug.Log("Invalid word, try again!");
+    }
+
+    private void ReloadScene()
+    {
+        SceneManager.LoadScene(0);
     }
 }

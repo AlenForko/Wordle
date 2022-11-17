@@ -9075,9 +9075,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  onLetterInput:
-    m_PersistentCalls:
-      m_Calls: []
   inputText:
   - {fileID: 110959720}
   - {fileID: 220408583}
@@ -9111,6 +9108,12 @@ MonoBehaviour:
   - {fileID: 1888829587}
   - {fileID: 1764741407}
   - {fileID: 655423965}
+  entries:
+  - {fileID: 1659647875}
+  - {fileID: 2139948093}
+  - {fileID: 1015168447}
+  - {fileID: 804941145}
+  - {fileID: 2009161780}
 --- !u!114 &1485737496
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9125,6 +9128,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _textAsset: {fileID: 4900000, guid: 9a371d82e1ddecd4f8736edf66389265, type: 3}
   textWords: []
+  tries: 0
 --- !u!1 &1497550264
 GameObject:
   m_ObjectHideFlags: 0
@@ -9308,7 +9312,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 62.332005}
+  m_SizeDelta: {x: 0, y: 62.332}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1540621432
 MonoBehaviour:
@@ -9393,10 +9397,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -11183,12 +11187,12 @@ MonoBehaviour:
   m_Padding:
     m_Left: 10
     m_Right: 10
-    m_Top: 6
-    m_Bottom: 326
+    m_Top: 34
+    m_Bottom: 0
   m_ChildAlignment: 1
-  m_Spacing: 0
+  m_Spacing: 61.87
   m_ChildForceExpandWidth: 1
-  m_ChildForceExpandHeight: 1
+  m_ChildForceExpandHeight: 0
   m_ChildControlWidth: 1
   m_ChildControlHeight: 0
   m_ChildScaleWidth: 0

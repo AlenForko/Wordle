@@ -13,15 +13,17 @@ public class PlayerInput : MonoBehaviour
    [Header("~~~~Event~~~~")]
    public UnityEvent<string> onSubmitWord = new UnityEvent<string>();
 
-   public UnityEvent<string> onLetterInput = new UnityEvent<string>();
-   
    [Header("~~~~InputText~~~~")]
    public List<TMP_Text> inputText = new List<TMP_Text>();
    
    [Header("~~~~Keyboard~~~~")]
    [SerializeField] private GameObject[] _keyboardLayout;
-   private PlayerInput _playerInput;
 
+   [HideInInspector]
+   public GameObject[] entries;
+   
+   private WordleManager _manager;
+   
    private readonly string[] _letters = 
    {
       "Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P", "A", "S", "D", "F", "G", "H", "J", "K", "L",
@@ -33,7 +35,9 @@ public class PlayerInput : MonoBehaviour
       PlayerInputString = "";
       inputText[0].text = "";
 
-      InitializeKeyboard();
+      _manager = GetComponent<WordleManager>();
+
+      Keyboard();
    }
 
    private void Update()
@@ -77,8 +81,16 @@ public class PlayerInput : MonoBehaviour
 
    public void EnterWord()
    {
-      onSubmitWord.Invoke(PlayerInputString);
-      ResetLetters();
+      if (PlayerInputString.Length == 5)
+      {
+         for (int i = 0; i < entries[_manager.tries].transform.childCount; i++)
+         {
+            GameObject thisLetter = entries[_manager.tries].transform.GetChild(i).gameObject;
+            thisLetter.GetComponent<TMP_Text>().text = PlayerInputString[i].ToString().ToUpper();
+         }
+         onSubmitWord.Invoke(PlayerInputString);
+         ResetLetters();
+      }
    }
 
    public void Backspace()
@@ -90,7 +102,7 @@ public class PlayerInput : MonoBehaviour
       inputText[PlayerInputString.Length].text = " ";
    }
    
-   private void InitializeKeyboard()
+   private void Keyboard()
    {
       for (int i = 0; i < _keyboardLayout.Length; i++)
       {
