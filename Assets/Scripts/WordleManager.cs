@@ -1,4 +1,6 @@
+using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -12,6 +14,7 @@ public class WordleManager : MonoBehaviour
     public List<string> textWords = new List<string>();
     
     private string _selectedWord;
+    [SerializeField] private TextMeshProUGUI _popUpText;
     public int tries = 0;
     public bool invalidWord = false;
     private void Start()
@@ -23,12 +26,13 @@ public class WordleManager : MonoBehaviour
     public void CheckWord(string word)
     {
         bool exists = false;
+        
         if (tries < 4)
         {
             if (word == _selectedWord.Trim())
             {
                 Win();
-                Invoke(nameof(ReloadScene), 2f);
+                return;
             }
 
             foreach (string item in textWords)
@@ -51,7 +55,7 @@ public class WordleManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("You lose!");
+            _popUpText.text = "You lose! Your word was: " + _selectedWord.ToUpper();
             Invoke(nameof(ReloadScene), 5f);
         }
     }
@@ -64,22 +68,23 @@ public class WordleManager : MonoBehaviour
 
     private void Win()
     {
-        Debug.Log("You Win!");
+        _popUpText.text = "You Win!";
+        Invoke(nameof(ReloadScene), 2f);
     }
 
     private void IncorrectWord()
     {
-        Debug.Log("Incorrect word! Remaining tries: " + tries);
+        _popUpText.text = "Incorrect word! Try again.";
     }
 
-    public void InvalidInput()
+    private void InvalidInput()
     {
-        Debug.Log("Invalid word, try again!");
-        //return invalidWord = true;
+        _popUpText.text = "Invalid word, try again!";
     }
 
     private void ReloadScene()
     {
         SceneManager.LoadScene(0);
     }
+    
 }

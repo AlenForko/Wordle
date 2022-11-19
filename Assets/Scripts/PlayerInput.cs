@@ -8,6 +8,11 @@ using UnityEngine.UI;
 public class PlayerInput : MonoBehaviour
 {
    private string PlayerInputString { get; set; }
+   private readonly string[] _letters = 
+   {
+      "Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P", "A", "S", "D", "F", "G", "H", "J", "K", "L",
+      "Z", "X", "C", "V", "B", "N", "M"
+   };
 
    [Header("~~~~Event~~~~")]
    public UnityEvent<string> onSubmitWord = new UnityEvent<string>();
@@ -22,14 +27,9 @@ public class PlayerInput : MonoBehaviour
    public GameObject[] entries;
 
    private int _row = 0;
+   
    private WordleManager _manager;
    
-   private readonly string[] _letters = 
-   {
-      "Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P", "A", "S", "D", "F", "G", "H", "J", "K", "L",
-      "Z", "X", "C", "V", "B", "N", "M"
-   };
-
    private void Start()
    {
       PlayerInputString = "";
