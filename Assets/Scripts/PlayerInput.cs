@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
@@ -46,7 +45,7 @@ public class PlayerInput : MonoBehaviour
       {
          if (PlayerInputString.Length <= 4)
          {
-            if (Input.inputString.All(Char.IsLetter))
+            if (Input.inputString.All(char.IsLetter))
             {
                PlayerInputString += Input.inputString;
                
@@ -81,14 +80,20 @@ public class PlayerInput : MonoBehaviour
 
    public void EnterWord()
    {
-      if (PlayerInputString.Length == 5)
+      onSubmitWord.Invoke(PlayerInputString.ToLower());
+      if (PlayerInputString.Length < 5 || _manager.invalidWord)
+      {
+         ResetLetters();
+         _manager.invalidWord = false;
+      }
+      else
       {
          for (int i = 0; i < entries[_manager.tries].transform.childCount; i++)
          {
-            GameObject thisLetter = entries[_manager.tries].transform.GetChild(i).gameObject;
+            GameObject thisLetter = entries[_manager.tries - 1].transform.GetChild(i).gameObject;
             thisLetter.GetComponent<TMP_Text>().text = PlayerInputString[i].ToString().ToUpper();
          }
-         onSubmitWord.Invoke(PlayerInputString);
+         
          ResetLetters();
       }
    }

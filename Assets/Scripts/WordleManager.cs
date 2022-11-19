@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -12,7 +13,7 @@ public class WordleManager : MonoBehaviour
     
     private string _selectedWord;
     public int tries = 0;
-    
+    public bool invalidWord = false;
     private void Start()
     {
         textWords = new List<string>(_textAsset.text.Split("\n"));
@@ -21,27 +22,37 @@ public class WordleManager : MonoBehaviour
 
     public void CheckWord(string word)
     {
-        if (tries <= 4)
+        bool exists = false;
+        if (tries < 4)
         {
-            if (!textWords.Contains(word))
-            {
-                InvalidInput();
-            }
-            else if (word == _selectedWord)
+            if (word == _selectedWord.Trim())
             {
                 Win();
+                Invoke(nameof(ReloadScene), 2f);
             }
-            else
+
+            foreach (string item in textWords)
             {
-                tries++;
-                IncorrectWord();
-                
-                if (tries >= 5)
+                if (item.Contains(word))
                 {
-                    Debug.Log("You lose!");
-                    Invoke(nameof(ReloadScene), 2f);
+                    if (word != _selectedWord)
+                    {
+                        IncorrectWord();
+                        tries++;
+                        exists = true;
+                    }
                 }
             }
+            if (!exists)
+            {
+                InvalidInput();
+                invalidWord = true;
+            }
+        }
+        else
+        {
+            Debug.Log("You lose!");
+            Invoke(nameof(ReloadScene), 5f);
         }
     }
 
@@ -58,12 +69,13 @@ public class WordleManager : MonoBehaviour
 
     private void IncorrectWord()
     {
-        Debug.Log("Incorrect word!" + tries);
+        Debug.Log("Incorrect word! Remaining tries: " + tries);
     }
 
     public void InvalidInput()
     {
         Debug.Log("Invalid word, try again!");
+        //return invalidWord = true;
     }
 
     private void ReloadScene()

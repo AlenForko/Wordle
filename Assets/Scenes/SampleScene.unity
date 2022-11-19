@@ -9126,9 +9126,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6874da42cdc468741a69bf058bf1c7e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _textAsset: {fileID: 4900000, guid: 9a371d82e1ddecd4f8736edf66389265, type: 3}
+  _textAsset: {fileID: 4900000, guid: 12f71a79fee4f62448ceb19c23a2b7e3, type: 3}
   textWords: []
   tries: 0
+  invalidWord: 0
 --- !u!1 &1497550264
 GameObject:
   m_ObjectHideFlags: 0
