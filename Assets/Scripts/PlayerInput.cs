@@ -20,7 +20,8 @@ public class PlayerInput : MonoBehaviour
 
    [HideInInspector]
    public GameObject[] entries;
-   
+
+   private int _row = 0;
    private WordleManager _manager;
    
    private readonly string[] _letters = 
@@ -88,12 +89,12 @@ public class PlayerInput : MonoBehaviour
       }
       else
       {
-         for (int i = 0; i < entries[_manager.tries].transform.childCount; i++)
+         for (int i = 0; i < entries[_row].transform.childCount; i++)
          {
-            GameObject thisLetter = entries[_manager.tries - 1].transform.GetChild(i).gameObject;
+            GameObject thisLetter = entries[_row].transform.GetChild(i).gameObject;
             thisLetter.GetComponent<TMP_Text>().text = PlayerInputString[i].ToString().ToUpper();
          }
-         
+         _row++;
          ResetLetters();
       }
    }
