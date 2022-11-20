@@ -1,7 +1,5 @@
-using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -17,6 +15,9 @@ public class WordleManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _popUpText;
     public int tries = 0;
     public bool invalidWord = false;
+
+    public WordleUIManager wordleUIManager;
+
     private void Start()
     {
         textWords = new List<string>(_textAsset.text.Split("\n"));
@@ -31,7 +32,7 @@ public class WordleManager : MonoBehaviour
         {
             if (word == _selectedWord.Trim())
             {
-                Win();
+                Win(word);
                 return;
             }
 
@@ -41,7 +42,7 @@ public class WordleManager : MonoBehaviour
                 {
                     if (word != _selectedWord)
                     {
-                        IncorrectWord();
+                        IncorrectWord(word, tries);
                         tries++;
                         exists = true;
                     }
@@ -66,15 +67,34 @@ public class WordleManager : MonoBehaviour
         Debug.Log("Current word: " + _selectedWord);
     }
 
-    private void Win()
+    private void Win(string word)
     {
         _popUpText.text = "You Win!";
+        wordleUIManager.EnterWord(word, new int[]{1,1,1,1,1}, tries);
         Invoke(nameof(ReloadScene), 2f);
     }
 
-    private void IncorrectWord()
+    private void IncorrectWord(string word, int trie)
     {
         _popUpText.text = "Incorrect word! Try again.";
+        int[] validity = new int[word.Length]; 
+        
+        for (int i = 0; i < word.Length; i++)
+        {
+            if (word[i] == _selectedWord[i])
+            {
+                validity[i] = 1;
+            }
+            else if(_selectedWord.Contains(word[i]))
+            {
+                validity[i] = 2;
+            }
+            else
+            {
+                validity[i] = 0;
+            }
+        }
+        wordleUIManager.EnterWord(word, validity, trie);
     }
 
     private void InvalidInput()

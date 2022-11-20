@@ -23,11 +23,6 @@ public class PlayerInput : MonoBehaviour
    [Header("~~~~Keyboard~~~~")]
    [SerializeField] private GameObject[] _keyboardLayout;
 
-   [HideInInspector]
-   public GameObject[] entries;
-
-   private int _row = 0;
-   
    private WordleManager _manager;
    
    private void Start()
@@ -65,11 +60,10 @@ public class PlayerInput : MonoBehaviour
 
       if (Input.GetKeyDown(KeyCode.Return))
       {
-         EnterWord();
+         SubmitWord();
       }
    }
-
-   //Resets the input to blank.
+   
    private void ResetLetters()
    {
       for (int i = 0; i < PlayerInputString.Length; i++)
@@ -79,24 +73,15 @@ public class PlayerInput : MonoBehaviour
       PlayerInputString = "";
    }
 
-   public void EnterWord()
+   public void SubmitWord()
    {
       onSubmitWord.Invoke(PlayerInputString.ToLower());
+
       if (PlayerInputString.Length < 5 || _manager.invalidWord)
       {
-         ResetLetters();
          _manager.invalidWord = false;
       }
-      else
-      {
-         for (int i = 0; i < entries[_row].transform.childCount; i++)
-         {
-            GameObject thisLetter = entries[_row].transform.GetChild(i).gameObject;
-            thisLetter.GetComponent<TMP_Text>().text = PlayerInputString[i].ToString().ToUpper();
-         }
-         _row++;
-         ResetLetters();
-      }
+      ResetLetters();
    }
 
    public void Backspace()
