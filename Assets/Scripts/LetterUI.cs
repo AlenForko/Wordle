@@ -4,8 +4,7 @@ using UnityEngine;
 public class LetterUI : MonoBehaviour
 {
     private TextMeshProUGUI _textUI;
-
-    // Start is called before the first frame update
+    
     void Start()
     {
         _textUI = GetComponent<TextMeshProUGUI>();

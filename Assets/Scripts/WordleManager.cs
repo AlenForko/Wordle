@@ -40,12 +40,11 @@ public class WordleManager : MonoBehaviour
             {
                 if (item.Contains(word))
                 {
-                    if (word != _selectedWord)
-                    {
-                        IncorrectWord(word, tries);
-                        tries++;
-                        exists = true;
-                    }
+
+                    IncorrectWord(word, tries);
+                    tries++;
+                    exists = true;
+                    
                 }
             }
             if (!exists)
