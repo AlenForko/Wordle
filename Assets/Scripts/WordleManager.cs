@@ -28,7 +28,7 @@ public class WordleManager : MonoBehaviour
     {
         bool exists = false;
         
-        if (tries < 4)
+        if (tries <= 4)
         {
             if (word == _selectedWord.Trim())
             {

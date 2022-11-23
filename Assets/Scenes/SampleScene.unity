@@ -4610,6 +4610,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e13540a3f3fb04849b65dc3cc3113d0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerInput: {fileID: 1485737495}
   keyboardLayout:
   - {fileID: 1451904810}
   - {fileID: 1914871569}
