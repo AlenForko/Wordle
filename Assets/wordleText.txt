@@ -1,4 +1,5 @@
 rossa
+kurwa
 jetty
 wizzo
 cuppa

@@ -14,8 +14,7 @@ public class WordleManager : MonoBehaviour
     private string _selectedWord;
     [SerializeField] private TextMeshProUGUI _popUpText;
     public int tries = 0;
-    public bool invalidWord = false;
-
+    
     public WordleUIManager wordleUIManager;
 
     private void Start()
@@ -28,7 +27,7 @@ public class WordleManager : MonoBehaviour
     {
         bool exists = false;
         
-        if (tries <= 4)
+        if (tries < 4)
         {
             if (word == _selectedWord.Trim())
             {
@@ -38,9 +37,8 @@ public class WordleManager : MonoBehaviour
 
             foreach (string item in textWords)
             {
-                if (item.Contains(word))
+                if (item.Contains(word) && word.Length == 5)
                 {
-
                     IncorrectWord(word, tries);
                     tries++;
                     exists = true;
@@ -50,7 +48,6 @@ public class WordleManager : MonoBehaviour
             if (!exists)
             {
                 InvalidInput();
-                invalidWord = true;
             }
         }
         else
@@ -76,7 +73,8 @@ public class WordleManager : MonoBehaviour
     private void IncorrectWord(string word, int trie)
     {
         _popUpText.text = "Incorrect word! Try again.";
-        int[] validity = new int[word.Length]; 
+        
+        int[] validity = new int[word.Length];
         
         for (int i = 0; i < word.Length; i++)
         {

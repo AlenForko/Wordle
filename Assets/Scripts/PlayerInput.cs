@@ -65,11 +65,6 @@ public class PlayerInput : MonoBehaviour
    public void SubmitWord()
    {
       onSubmitWord.Invoke(PlayerInputString.ToLower());
-
-      if (PlayerInputString.Length < 5 || _manager.invalidWord)
-      {
-         _manager.invalidWord = false;
-      }
       ResetLetters();
    }
 
