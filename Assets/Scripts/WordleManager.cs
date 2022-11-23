@@ -27,8 +27,8 @@ public class WordleManager : MonoBehaviour
     {
         bool exists = false;
         
-        if (tries < 4)
-        {
+        if (tries <= 4)
+        { 
             if (word == _selectedWord.Trim())
             {
                 Win(word);
@@ -42,7 +42,6 @@ public class WordleManager : MonoBehaviour
                     IncorrectWord(word, tries);
                     tries++;
                     exists = true;
-                    
                 }
             }
             if (!exists)
@@ -50,11 +49,10 @@ public class WordleManager : MonoBehaviour
                 InvalidInput();
             }
         }
-        else
-        {
-            _popUpText.text = "You lose! Your word was: " + _selectedWord.ToUpper();
-            Invoke(nameof(ReloadScene), 5f);
-        }
+
+        if (tries != 5) return;
+        _popUpText.text = "You lose! Your word was: " + _selectedWord.ToUpper();
+        Invoke(nameof(ReloadScene), 5f);
     }
 
     private void SelectRandomWord()
